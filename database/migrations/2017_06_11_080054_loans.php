@@ -33,5 +33,6 @@ class Loans extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('loans');
     }
 }

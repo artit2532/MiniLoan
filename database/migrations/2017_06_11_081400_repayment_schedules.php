@@ -26,7 +26,7 @@ class RepaymentSchedules extends Migration
                 $table->datetime('created_at');
                 $table->datetime('updated_at');
 
-                $table->foreign('loan_id')->reference('id')->on('loans');
+                $table->foreign('loan_id')->references('id')->on('loans');
             });
         }
     }
@@ -39,5 +39,6 @@ class RepaymentSchedules extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('repayment_schedules');
     }
 }
