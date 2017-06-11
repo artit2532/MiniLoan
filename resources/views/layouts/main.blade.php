@@ -8,6 +8,7 @@
         <title>MiniLoan - @yield('title')</title>
         <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/bootstrap/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/app.css')}}" rel="stylesheet">
         @yield('css')
     </head>
     <body>

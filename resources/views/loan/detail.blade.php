@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<h2>Repayment Schedule</h2>
+<h2>Repayment Schedules</h2>
 <div>
     <table class="table table-striped">
         <thead>

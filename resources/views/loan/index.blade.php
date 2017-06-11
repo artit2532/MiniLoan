@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<h1>All Loan</h1>
+<h1>All Loans</h1>
 <div><a class="btn btn-primary" type="button" href="{{action('LoanController@create')}}">Add New Loan</a></div>
 <div>
     <table class="table table-striped">
@@ -30,7 +30,7 @@
 	        		<td>{{$loan->loan_amount}}</td>
 	        		<td>{{$loan->loan_term}}</td>
 	        		<td>{{$loan->interest_rate}}</td>
-	        		<td>{{$loan->Created_at}}</td>
+	        		<td>{{$loan->created_at}}</td>
 					<td>
 						<button class="btn btn-info" type="button">View</button>
 						<button class="btn btn-success" type="button">Edit</button>
@@ -40,5 +40,24 @@
         	@endforeach
         </tbody>
     </table>
+</div>
+<div class="pagination">
+    <ul>
+        @if($page<=1)
+            <li class='disabled'><a href="javascript:"><<</a></li>
+        @else
+            <li><a href="{{action('LoanController@index',['page'=>$page-1])}}"><<</a></li>
+        @endif
+
+        @for($i=1 ; $total_loan - ($per_page * $i) > -$per_page  ; $i++)
+            <li class='{{($i==$page)?"active":""}}'><a href="{{action('LoanController@index',['page'=>$i])}}">{{$i}}</a></li>
+        @endfor
+
+        @if($i-1==$page)
+            <li class='disabled'><a href="javascript:">>></a></li>
+        @else
+            <li><a href="{{action('LoanController@index',['page'=>$page+1])}}">>></a></li>
+        @endif
+    </ul>
 </div>
 @endsection

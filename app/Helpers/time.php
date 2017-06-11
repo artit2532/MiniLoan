@@ -8,7 +8,7 @@ function getCurrentYear(){
 }
 
 function getAllMonth(){
-	return [
+	static $months = [
         '1' => 'Janaury',
         '2' => 'February',
         '3' => 'March',
@@ -22,6 +22,7 @@ function getAllMonth(){
         '11' => 'November',
         '12' => 'December',
 	];
+    return $months;
 }
 
 function getCurrentMonth(){
