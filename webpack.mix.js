@@ -12,4 +12,12 @@ let mix = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+   .sass('resources/assets/sass/app.scss', 'public/css')
+
+    //to bad mix is not support for multiple compile at this time we need to
+    //map each file manually and we can't create portal file for include scss
+    //we just need only related file in that page
+   .sass('resources/assets/sass/views/loan/form.scss', 'public/css/views/loan')
+   ;
+
+mix.browserSync('localhost:8000');
