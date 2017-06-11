@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Loan;
+use App\Http\Requests\StoreLoan;
+
 class LoanController extends Controller
 {
     public function index(){
@@ -15,23 +17,8 @@ class LoanController extends Controller
         return view('loan.form');
     }
 
-    public function store(Request $request){
-    	$max_loan_amount = config('constants.loan.loan_amount.max');
-    	$min_loan_amount = config('constants.loan.loan_amount.min');
-    	$max_loan_term = config('constants.loan.loan_term.max');
-    	$min_loan_term = config('constants.loan.loan_term.min');
-    	$max_interest_rate = config('constants.loan.interest_rate.max');
-    	$min_interest_rate = config('constants.loan.interest_rate.min');
-    	$max_start_year = config('constants.loan.start_year.max');
-    	$min_start_year = config('constants.loan.start_year.min');
-    	
-        $this->validate($request, [
-		    'loan_amount' => "required|integer|min:$min_loan_amount|max:$max_loan_amount",
-		    'loan_term' => "required|integer|min:$min_loan_term|max:$max_loan_term",
-		    'interest_rate' => "required|integer|min:$min_interest_rate|max:$max_interest_rate",
-		    'start_month' => 'required|integer|min:1|max:12',
-		    'start_year' => "required|integer|min:$min_start_year|max:$max_start_year",
-		]);
+    public function store(StoreLoan $request){
+
     }
 
     public function edit($id){
