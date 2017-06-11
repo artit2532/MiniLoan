@@ -26,16 +26,16 @@
         <tbody>
         	@foreach($loans as $loan)
 	        	<tr>
-	        		<th>{{$loan->id}}</th>
-	        		<th>{{$loan->loan_amount}}</th>
-	        		<th>{{$loan->loan_term}}</th>
-	        		<th>{{$loan->interest_rate}}</th>
-	        		<th>{{$loan->Created_at}}</th>
-					<th>
+	        		<td>{{$loan->id}}</td>
+	        		<td>{{$loan->loan_amount}}</td>
+	        		<td>{{$loan->loan_term}}</td>
+	        		<td>{{$loan->interest_rate}}</td>
+	        		<td>{{$loan->Created_at}}</td>
+					<td>
 						<button class="btn btn-info" type="button">View</button>
 						<button class="btn btn-success" type="button">Edit</button>
 						<button class="btn btn-danger" type="button">Delete</button>
-					</th>
+					</td>
 	        	</tr>
         	@endforeach
         </tbody>

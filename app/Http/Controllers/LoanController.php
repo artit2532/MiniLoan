@@ -38,4 +38,9 @@ class LoanController extends Controller
         $loan = Loan::findOrFail($id);
         return view('loan.form',['loan'=>$loan]);
     }
+
+    public function show($id){
+        $loan = Loan::findOrFail($id);
+        return view('loan.detail',['loan'=>$loan,'some status']);
+    }
 }
