@@ -118,19 +118,19 @@ class LoanService {
 		$r = $interest_per_month;
 
 		//power
-		$power = bcmul("$loan_term","-12",0);
+		$power = bcmul("$loan_term","-12",12);
 
-		$numerator = bcmul("$loan_amount","$r",10);
-		$denominator = bcsub("1", bcpow( bcadd("1","$r",10) , $power,10) ,10);
-		$pmt = bcdiv($numerator,$denominator,10);
+		$numerator = bcmul("$loan_amount","$r",12);
+		$denominator = bcsub("1", bcpow( bcadd("1","$r",12) , $power,12) ,12);
+		$pmt = bcdiv($numerator,$denominator,12);
 		return $pmt;
 	}
 
 	public function calculateInterestPerMonth($interest_rate){
 		//first let change interest_rate to percent
-		$irp = bcdiv("$interest_rate","100",10);
+		$irp = bcdiv("$interest_rate","100",12);
 		//then calculate interest rate per month
-		$r = bcdiv("$irp","12",10);
+		$r = bcdiv("$irp","12",12);
 		return $r;
 	}
 

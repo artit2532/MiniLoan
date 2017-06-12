@@ -16,7 +16,6 @@ class LoanController extends Controller
   
         if (!ctype_digit($page) || $page <= 0) {
             // not a positive numeric character
-            dd($page);
             abort(404,'Page is not positive integer.');
         }
         $per_page = config('constants.loan.per_page');
@@ -31,7 +30,7 @@ class LoanController extends Controller
         ]);
     }
 
-    public function create(LoanService $loan_service){
+    public function create(){
         return view('loan.form');
     }
 
@@ -50,9 +49,12 @@ class LoanController extends Controller
     public function edit($id){
         $loan = Loan::findOrFail($id);
         $schedule = RepaymentSchedule::loanId($id)->first();
-        $dt = Carbon::parse($schedule->date);
-        $loan->start_month = $dt->month;
-        $loan->start_year = $dt->year;
+        if ($schedule) {
+            $dt = Carbon::parse($schedule->date);
+            $loan->start_month = $dt->month;
+            $loan->start_year = $dt->year;
+        }
+        
 
         return view('loan.form',['loan'=>$loan]);
     }
