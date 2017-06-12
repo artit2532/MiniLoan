@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Loan;
+use App\Models\RepaymentSchedule;
 use App\Http\Requests\StoreLoan;
+use App\Services\LoanService;
+use Carbon\Carbon;
 
 class LoanController extends Controller
 {
@@ -28,21 +31,59 @@ class LoanController extends Controller
         ]);
     }
 
-    public function create(){
+    public function create(LoanService $loan_service){
         return view('loan.form');
     }
 
-    public function store(StoreLoan $request){
+    public function store(StoreLoan $request,LoanService $loan_service){
+        $loan = $loan_service->saveLoan($request->loan_amount,
+                                        $request->loan_term,
+                                        $request->interest_rate,
+                                        $request->start_month,
+                                        $request->start_year);
+        return redirect()->action(
+            'LoanController@show', ['id' => $loan->id]
+        )->with('status',"The Loan #{$loan->id} has been created succesfull");
 
     }
 
     public function edit($id){
         $loan = Loan::findOrFail($id);
+        $schedule = RepaymentSchedule::loanId($id)->first();
+        $dt = Carbon::parse($schedule->date);
+        $loan->start_month = $dt->month;
+        $loan->start_year = $dt->year;
+
         return view('loan.form',['loan'=>$loan]);
     }
+
+    public function update(StoreLoan $request,LoanService $loan_service,$id){
+        $loan = Loan::findOrFail($id);
+        $loan = $loan_service->saveLoan($request->loan_amount,
+                                        $request->loan_term,
+                                        $request->interest_rate,
+                                        $request->start_month,
+                                        $request->start_year,
+                                        $loan);
+        return redirect()->action(
+            'LoanController@show', ['id' => $loan->id]
+        )->with('status',"The Loan #{$loan->id} has been updated succesfull");
+
+    }
+
 
     public function show($id){
         $loan = Loan::findOrFail($id);
         return view('loan.detail',['loan'=>$loan,'some status']);
+    }
+
+    public function destroy(LoanService $loan_service,$id)
+    {
+        $loan = Loan::findOrFail($id);
+        $loan_service->deleteLoan($loan);
+        return redirect()->action(
+            'LoanController@index', ['id' => $loan->id]
+        )->with('status',"The Loan #{$loan->id} has been deleted succesfull");
+
     }
 }

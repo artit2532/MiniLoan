@@ -178,7 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //custom service provider
-
+        App\Providers\LoanServiceProvider::class,
     ],
 
     /*

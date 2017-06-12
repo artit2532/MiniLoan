@@ -25,13 +25,13 @@
 <form class="form-horizontal" action="{{(!isset($loan)?action('LoanController@store'):action('LoanController@update',[$loan->id]))}}" method="POST">
     {{ csrf_field() }}
     @isset($loan)
-        <input type="hidden" name="_method" value="PATCH">
+        <input type="hidden" name="_method" value="PUT">
     @endisset
   <div class="control-group">
     <label class="control-label" for="inputLoanAmount">Loan Amount:</label>
     <div class="controls">
         <div class="input-append input-container">
-            <input type="text" id="inputLoanAmount" name='loan_amount' value="{{old('loan_amount',(isset($loan)?$loan->loan_amount:''))}}">
+            <input type="text" id="inputLoanAmount" name='loan_amount' value="{{old('loan_amount',(isset($loan)?round($loan->loan_amount):''))}}">
             <span class="add-on">฿</span>
         </div>
       
@@ -50,7 +50,7 @@
     <label class="control-label" for="inputInterestRate">Interest Rate:</label>
     <div class="controls">
         <div class="input-append input-container">
-            <input type="text" id="inputInterestRate" name='interest_rate' value="{{old('interest_rate',(isset($loan)?$loan->interest_rate:''))}}">
+            <input type="text" id="inputInterestRate" name='interest_rate' value="{{old('interest_rate',(isset($loan)?round($loan->interest_rate):''))}}">
             <span class="add-on">%</span>
         </div>
     </div>
@@ -72,7 +72,8 @@
                 <select id='selectStartYear' name='start_year'>
                         @for($year=config('constants.loan.start_year.min') ; $year<=config('constants.loan.start_year.max') ; $year++)
                             <option value='{{$year}}'
-                                @if(old('start_year',(isset($loan)?$loan->start_year:getCurrentYear())) == $i) selected @endif
+                                @if(old('start_year',(isset($loan)?$loan->start_year:getCurrentYear())) == $year) 
+                                selected @endif
                                 >
                                 {{$year}}
                             </option>

@@ -9,9 +9,6 @@
 @endsection
 
 @section('content')
-<div class="alert alert-info">
-  {{$status or ''}}
-</div>
 <h1>Loan Detail</h1>
 <div>
     <div class='row'>
@@ -20,7 +17,7 @@
     </div>
     <div class='row'>
         <div class="span2">Loan Amount:</div>
-        <div class="span2">{{$loan->loan_amount}}</div>
+        <div class="span2">{{number_format($loan->loan_amount,2)}}</div>
     </div>
     <div class='row'>
         <div class="span2">Loan Term:</div>
@@ -28,12 +25,15 @@
     </div>
     <div class='row'>
         <div class="span2">Interest Late:</div>
-        <div class="span2">{{$loan->interest_rate}}</div>
+        <div class="span2">{{number_format($loan->interest_rate,2)}}%</div>
     </div>
     <div class='row'>
         <div class="span2">Created at:</div>
         <div class="span2">{{$loan->created_at}}</div>
     </div>
+</div>
+<div>
+    <a class='btn' href="{{action('LoanController@index')}}">Back</a>
 </div>
 
 <h2>Repayment Schedules</h2>
@@ -52,12 +52,12 @@
         <tbody>
         	@foreach($loan->repaymentSchedules as $schedule)
 	        	<tr>
-	        		<td>{{$schedules->payment_no}}</td>
-	        		<td>{{$schedules->date}}</td>
-	        		<td>{{$schedules->payment_amount}}</td>
-	        		<td>{{$schedules->principal}}</td>
-                    <td>{{$schedules->interest}}</td>
-	        		<td>{{$schedules->balance}}</td>
+	        		<td>{{$schedule->payment_no}}</td>
+	        		<td>{{date('M y', strtotime($schedule->date))}}</td>
+	        		<td>{{number_format($schedule->payment_amount,2)}}</td>
+	        		<td>{{number_format($schedule->principal,2)}}</td>
+                    <td>{{number_format($schedule->interest,2)}}</td>
+	        		<td>{{number_format($schedule->balance,2)}}</td>
 	        	</tr>
         	@endforeach
         </tbody>

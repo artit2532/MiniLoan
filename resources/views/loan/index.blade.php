@@ -27,14 +27,18 @@
         	@foreach($loans as $loan)
 	        	<tr>
 	        		<td>{{$loan->id}}</td>
-	        		<td>{{$loan->loan_amount}}</td>
-	        		<td>{{$loan->loan_term}}</td>
-	        		<td>{{$loan->interest_rate}}</td>
+	        		<td>{{number_format($loan->loan_amount,2)}} ฿</td>
+	        		<td>{{$loan->loan_term}} Years</td>
+	        		<td>{{number_format($loan->interest_rate,2)}}%</td>
 	        		<td>{{$loan->created_at}}</td>
 					<td>
-						<button class="btn btn-info" type="button">View</button>
-						<button class="btn btn-success" type="button">Edit</button>
-						<button class="btn btn-danger" type="button">Delete</button>
+                        <form action="{{action('LoanController@destroy',['id'=>$loan->id])}}" method="POST">
+						<a class="btn btn-info" href="{{action('LoanController@show',['id'=>$loan->id])}}">View</a>
+						<a class="btn btn-success" href="{{action('LoanController@edit',['id'=>$loan->id])}}">Edit</a>
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
 					</td>
 	        	</tr>
         	@endforeach
