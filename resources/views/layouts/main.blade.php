@@ -8,9 +8,16 @@
         <title>MiniLoan - @yield('title')</title>
         <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{asset('vendor/bootstrap/css/bootstrap-responsive.min.css')}}" rel="stylesheet">
+        <link href="{{asset('css/app.css')}}" rel="stylesheet">
         @yield('css')
     </head>
     <body>
+        @if(Session::has('status'))
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>{{Session::get('status')}}</strong>
+            </div>
+        @endif
         <div class='container'>
             @yield('content')
         </div>

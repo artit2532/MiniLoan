@@ -23,8 +23,7 @@ class RepaymentSchedules extends Migration
                 $table->decimal('principal', 21, 6);
                 $table->decimal('interest', 21, 6);
                 $table->decimal('balance', 21, 6);
-                $table->datetime('created_at');
-                $table->datetime('updated_at');
+                $table->timestamps();
 
                 $table->foreign('loan_id')->references('id')->on('loans');
             });

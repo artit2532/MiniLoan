@@ -12,13 +12,11 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+$factory->define(App\Models\Loan::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'loan_amount' => $faker->randomFloat($nbMaxDecimals = 6, $min = 1000, $max = 100000000),
+        'loan_term' => $faker->numberBetween($min = 1,$max = 50),
+        'interest_rate' => $faker->randomFloat($nbMaxDecimals = 6, $min = 1, $max = 36),
     ];
 });

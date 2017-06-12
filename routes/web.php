@@ -13,9 +13,9 @@
 
 
 Route::get('/', function () {
-    return redirect('loan');
+    return redirect('loans');
 });
 
-Route::resource('loan','LoanController');
+Route::resource('loans','LoanController');
 
 

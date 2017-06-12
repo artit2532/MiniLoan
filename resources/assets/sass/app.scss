@@ -2,8 +2,7 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.pagination ul>.active>a, .pagination ul>.active>span{
+	color: white;
+    background-color: #006dcc;
+}

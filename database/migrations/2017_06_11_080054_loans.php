@@ -19,8 +19,7 @@ class Loans extends Migration
                 $table->decimal('loan_amount', 21, 6);
                 $table->unsignedInteger('loan_term');
                 $table->decimal('interest_rate', 21, 6);
-                $table->datetime('created_at');
-                $table->datetime('updated_at');
+                $table->timestamps();
             });
         }
     }
